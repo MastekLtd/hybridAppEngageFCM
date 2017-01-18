@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="app-engage-fcm" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>AppEngageFcm</name>
+    <js-module name="AppEngageFcm" src="www/AppEngageFcm.js">
+        <clobbers target="AppEngageFcm" />
+    </js-module>
+	
+	
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+            <feature name="AppEngageFcm" >
+                <param name="android-package" value="com.plugin.appengage.AppEngageAnalytics"/>
+				<param name="onload" value="true" />
+            </feature>
+        </config-file>
+		
+		<source-file src="src/android/com/plugin/appengage/AppEngageAnalytics.java" target-dir="src/com/plugin/appengage/" />
+		<source-file src="src/android/libs/classes.jar" target-dir="libs" />
+		
+		<config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+			<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+			<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+			<uses-permission android:name="android.permission.WAKE_LOCK" />
+        </config-file>
+		
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+			<receiver
+				android:name="com.mastek.appengage.MyReceiver"
+				android:enabled="true"
+				android:exported="true">
+					<intent-filter>
+						<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+						<action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+						<action android:name="android.net.wifi.STATE_CHANGE" />
+					</intent-filter>
+			</receiver>
+			
+			<service android:name="com.mastek.appengage.FBA">
+				<intent-filter>
+					<action android:name="com.google.firebase.MESSAGING_EVENT" />
+				</intent-filter>
+			</service>
+
+			<service android:name="com.mastek.appengage.FBI">
+				<intent-filter>
+					<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+				</intent-filter>
+			</service>
+		</config-file>
+		<framework src="src/android/FcmPlugin.gradle" custom="true" type="gradleReference"/>
+		<framework src="com.google.android.gms:play-services-location:9.6.1" />
+		<framework src="com.google.android.gms:play-services-base:9.6.1" />
+	</platform>
+</plugin>
