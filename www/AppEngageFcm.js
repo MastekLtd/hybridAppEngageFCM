@@ -26,3 +26,10 @@ exports.end= function (success,error){
 exports.my= function (success,error){
     exec(success, error, "AppEngageFcm", "my", []);
 };
+exports.loginUserId= function (arg0,success,error){
+    exec(success, error, "AppEngageFcm", "loginUserId", [arg0]);
+};
+
+exports.logoutUser= function (success,error){
+    exec(success, error, "AppEngageFcm", "logoutUser", []);
+};

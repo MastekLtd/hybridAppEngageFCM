@@ -94,6 +94,15 @@ public class AppEngageAnalytics extends CordovaPlugin  {
 			Log.e(TAG, "execute:End "+s );
 			MA.endFragmentScreen(s);
 			return true;
+		} else if (action.equalsIgnoreCase("loginUserId")) {
+			Log.e("loginUserId","loginUserId");
+			String userid=args.getString(0);
+			  MA.setCustomAppUser(userid);
+			return true;
+		}else if (action.equalsIgnoreCase("logoutUser")) {
+			Log.e("logoutUser","logoutUser");
+			  MA.removeCustomAppUser();
+			return true;
 		}
 
 		return super.execute(action, args, callbackContext);
