@@ -12,6 +12,10 @@ import com.mastek.appengage.MA;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import android.os.Build;
+import com.mastek.appengage.utils.Utils;
 
 public class AppEngageAnalytics extends CordovaPlugin  {
 
@@ -70,9 +74,58 @@ public class AppEngageAnalytics extends CordovaPlugin  {
 
 		} else if (action.equalsIgnoreCase("crash")) {
 			Log.e("action", "crash action");
-			Toast.makeText(context,"CRASH",Toast.LENGTH_SHORT).show();
-			int j=1/0;
-
+			String msg=args.getString(0);
+			String url=args.getString(1);
+			String line=args.getString(2);
+			String col=args.getString(3);
+			String error=args.getString(4);
+			String html= args.getString(5);
+			final StringBuffer errorReport = new StringBuffer();
+			MA.crashApiClassName=html;
+			errorReport.append("************ CAUSE OF ERROR ************\n\n");
+			errorReport.append("msg");
+			errorReport.append(msg);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("url");
+            errorReport.append(url);
+			errorReport.append(LINE_SEPARATOR);
+			errorReport.append("line");
+            errorReport.append(line);
+			errorReport.append(LINE_SEPARATOR);
+			errorReport.append("col");
+            errorReport.append(col);
+            errorReport.append(LINE_SEPARATOR);
+			errorReport.append("error");
+            errorReport.append(error);
+			errorReport.append("\n************ DEVICE INFORMATION ***********\n");
+            errorReport.append("Brand: ");
+            errorReport.append(Build.BRAND);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("Device: ");
+            errorReport.append(Build.DEVICE);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("Model: ");
+            errorReport.append(Build.MODEL);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("Id: ");
+            errorReport.append(Build.ID);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("Product: ");
+            errorReport.append(Build.PRODUCT);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("\n************ FIRMWARE ************\n");
+            errorReport.append("SDK: ");
+            errorReport.append(Build.VERSION.SDK);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("Release: ");
+            errorReport.append(Build.VERSION.RELEASE);
+            errorReport.append(LINE_SEPARATOR);
+            errorReport.append("Incremental: ");
+            errorReport.append(Build.VERSION.INCREMENTAL);
+            errorReport.append(LINE_SEPARATOR);
+			Utils.isFromCrashApi=true;
+			MA.crashApi(msg,errorReport.toString());
+			System.exit(0);
 			return true;
 		}
 		else if(action.equalsIgnoreCase("my")){

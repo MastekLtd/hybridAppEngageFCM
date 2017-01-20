@@ -16,8 +16,8 @@ exports.startScreen= function (success,error){
 exports.endScreen= function (arg0,success,error){
     exec(success, error, "AppEngageFcm", "endScreen", [arg0]);
 };
-exports.crash= function (success,error){
-    exec(success, error, "AppEngageFcm", "crash", []);
+exports.crash= function (arg0,success,error){
+    exec(success, error, "AppEngageFcm", "crash", arg0);
 };
 exports.end= function (success,error){
     exec(success, error, "AppEngageFcm", "end", []);

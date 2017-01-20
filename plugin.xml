@@ -16,7 +16,7 @@
 		
 		<source-file src="src/android/com/plugin/appengage/AppEngageAnalytics.java" target-dir="src/com/plugin/appengage/" />
 		<source-file src="src/android/libs/classes.jar" target-dir="libs" />
-		
+		<asset src="www/AppEngageError.js" target="AppEngageError.js" />
 		<config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
 			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
