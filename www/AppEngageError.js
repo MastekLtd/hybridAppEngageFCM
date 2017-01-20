@@ -7,7 +7,7 @@ window.onerror = function(msg, url, line, col, error) {
    // You can view the information in an alert to see things working like this:
    
    
-   AppEngageAnalytics.crash([msg,url,line,col,error,document.URL],function(){alert("Success");},function(){alert("failed");});
+   AppEngageFcm.crash([msg,url,line,col,error,document.URL],function(){alert("Success");},function(){alert("failed");});
 	alert("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
    // TODO: Report this error via ajax so you can keep track
    //       of what pages have JS issues
